@@ -38,11 +38,11 @@ app.get('/:uid/:name/:emailid/:startdate', (req, res) => {
         })
     });               
 });
-app.get('/remove/uid', (req, res) => {
+app.get('/:remove/:uid', (req, res) => {
     var item={
-    "name":req.params.name
+    "uid":req.params.uid
     }
-
+    console.log(req.params.uid)
     MongoClient.connect(dbConfig.url, function (err, db) {
         
         db.collection('user',(err,coln)=>{
@@ -54,6 +54,10 @@ app.get('/remove/uid', (req, res) => {
         })
     });               
 });
+
+
+
+
 app.get('/count',(req,res)=>{
     MongoClient.connect(dbConfig.url, function (err, db) {
         db.collection('user',(err,coln)=>{

@@ -19,15 +19,17 @@ var uid=0;
 app.get('/:name/:emailid/:startdate', (req, res) => {
     uid=uid+1
     axios.get(`http://localhost:3001/${uid}/${req.params.name}/${req.params.emailid}/${req.params.startdate}`)
-    .then(response=>{
-        console.log(response.data)
-        console.log(uid)
-    })
-    .catch(error=>{
-        console.log(error)
-    })
+                                .then(response=>{
+                                        console.log(response.data)
+                                        console.log(uid)
+                                })
+                                .catch(error=>{
+                                         console.log(error)
+                                        })
     res.send({"status":"ok"})
 });
+
+
 app.get('/',function(req,res){
     res.send("it's working")
 })
