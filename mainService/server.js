@@ -16,9 +16,11 @@ app.get('/',(req,res)=>{
 })
 var uid=0;
 // define a simple route
-app.get('/:name/:emailid/:startdate', (req, res) => {
+app.get('/:name/:emailid/:year/:month/:date/:hour', (req, res) => {
+    var d=new Date(req.params.year,(parseInt(req.params.month)-1).toString(),req.params.date,req.params.hour)
+    console.log(d)
     uid=uid+1
-    axios.get(`http://localhost:3001/${uid}/${req.params.name}/${req.params.emailid}/${req.params.startdate}`)
+    axios.get(`http://localhost:3001/${uid}/${req.params.name}/${req.params.emailid}/${d}`)
                                 .then(response=>{
                                         console.log(uid)
                                         res.send({"status":"ok"})
