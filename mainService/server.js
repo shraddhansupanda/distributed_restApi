@@ -20,7 +20,6 @@ app.get('/:name/:emailid/:startdate', (req, res) => {
     uid=uid+1
     axios.get(`http://localhost:3001/${uid}/${req.params.name}/${req.params.emailid}/${req.params.startdate}`)
                                 .then(response=>{
-                                        console.log(response.data)
                                         console.log(uid)
                                 })
                                 .catch(error=>{
@@ -28,7 +27,19 @@ app.get('/:name/:emailid/:startdate', (req, res) => {
                                         })
     res.send({"status":"ok"})
 });
-
+app.get('/secondservice/:uid',(req,res)=>{
+        console.log(req.params.uid)
+})
+app.get('/reversbooking/:uid',(req,res)=>{
+    console.log(req.params.uid)
+    axios.get(`http://localhost:3001/reversebooking/${req.params.uid}`)
+    .then(response=>{
+            console.log(response)
+    })
+  .catch(error=>{
+            console.log(error)
+    })
+})
 
 app.get('/',function(req,res){
     res.send("it's working")
