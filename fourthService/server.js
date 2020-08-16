@@ -49,6 +49,69 @@ app.get('/firstservice/:uid/:status',(req,res)=>{
     // res.send(status)
 })
 
+app.get('/secondservice/:uid/:status',(req,res)=>{
+    var status={
+        "uid":req.params.uid,
+        "status":req.params.status
+    }
+
+    
+
+    if (req.params.status == "200"){
+        axios.get(`http://localhost:3000/thirdservice/${req.params.uid}`)
+                                                        .then(response=>{
+                                                                console.log(response.data)
+                                                                res.send(response.data)
+                                                        })
+                                                      .catch(error=>{
+                                                                console.log(error)
+                                                                res.send("fail")
+                                                        })
+    }
+    else{
+    axios.get(`http://localhost:3000/reversbooking/${req.params.uid}`)
+    .then(response=>{
+            console.log(response.data)
+            res.send({"status":"pass"})
+    })
+    .catch(error=>{
+            console.log(error)
+            res.send({"status":"fail"})
+    })
+    }
+
+    // res.send(status)
+})
+
+
+app.get('/thirdservice/:uid/:status',(req,res)=>{
+    var status={
+        "uid":req.params.uid,
+        "status":req.params.status
+    }
+
+    
+
+    if (req.params.status == "200"){
+        console.log("Data successfully entered")
+    }
+    else{
+    axios.get(`http://localhost:3000/reversbooking/${req.params.uid}`)
+    .then(response=>{
+            console.log(response.data)
+            res.send({"status":"pass"})
+    })
+    .catch(error=>{
+            console.log(error)
+            res.send({"status":"fail"})
+    })
+    }
+
+    // res.send(status)
+})
+
+
+
 // listen for requests
 app.listen(3004, () => {
     console.log("Server is listening on port 3004");

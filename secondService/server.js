@@ -27,14 +27,50 @@ app.get('/timescheduling/:uid', (req, res) => {
     }
     MongoClient.connect(dbConfig.url, function (err, db) {
         
+        // db.collection('user',(err,coln)=>{
+        //     coln.findOne(item,(err,data)=>{
+        //     if (err) throw err;
+        //     console.log(data.startdate)
+        //     res.json(data.startdate)
+        //     db.close();
+        // })
+        // })
         db.collection('user',(err,coln)=>{
-            coln.findOne(item,(err,data)=>{
+            var number;
+        coln.findOne(item,(err,data)=>{
             if (err) throw err;
-            console.log(data.startdate)
-            res.json(data.startdate)
+            number=Number(new date(data.startdate))
+        })
+        coln.find((err,data)=>{
+            if (err) throw err;
+            data.forEach(element => {
+                
+                if ((Number(new Date(element.startdate)))==number){
+                    axios.get(`http://localhost:3004/secondservice/${req.params.uid}/500`)
+                            .then(response=>{
+                                    console.log(response.data)
+                                    res.send({"status":"fail"})
+                            })
+                            .catch(error=>{
+                                        console.log(error)
+        })
+                }
+                console.log(Number(new Date(element.startdate)))
+            });
+            axios.get(`http://localhost:3004/secondservice/${req.params.uid}/200`)
+                            .then(response=>{
+                                    console.log(response.data)
+                                    res.send({"status":"pass"})
+                            })
+                            .catch(error=>{
+                                        console.log(error)
+        })
+           
+            // res.json(data.startdate)
             db.close();
         })
-        })
+
+    });
     });               
 });
 

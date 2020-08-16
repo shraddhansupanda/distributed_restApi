@@ -57,6 +57,20 @@ app.get('/secondservice/:uid',(req,res)=>{
     
 })
 
+app.get('/thirdservice/:uid',(req,res)=>{
+    console.log(req.params.uid)
+    axios.get(`http://localhost:3003/namecheck/${req.params.uid}`)
+    .then(response=>{
+            console.log(response.data)
+            res.send({"status":"ok"})
+    })
+  .catch(error=>{
+            console.log(error)
+            res.send({"status":"fail"})
+    })
+    
+})
+
 
 // listen for requests
 app.listen(3000, () => {
