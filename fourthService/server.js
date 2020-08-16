@@ -22,17 +22,22 @@ app.get('/firstservice/:uid/:status',(req,res)=>{
         "uid":req.params.uid,
         "status":req.params.status
     }
-    if (status.uid == "200"){
-        axios.get(`http://localhost:3000/secondservice/${status.uid}`)
+
+    
+
+    if (req.params.status == "200"){
+        axios.get(`http://localhost:3000/secondservice/${req.params.uid}`)
                                                         .then(response=>{
                                                                 console.log(response.data)
+                                                                res.send(response.data)
                                                         })
                                                       .catch(error=>{
                                                                 console.log(error)
+                                                                res.send("fail")
                                                         })
     }
-    else if (status.uid=='500'){
-        axios.get(`http://localhost:3000/reversbooking/${status.uid}`)
+    else if (req.params.status=='500'){
+        axios.get(`http://localhost:3000/reversbooking/${req.params.uid}`)
         .then(response=>{
                 console.log(response.data)
         })
@@ -41,7 +46,7 @@ app.get('/firstservice/:uid/:status',(req,res)=>{
         })
     }
 
-    res.send(status)
+    // res.send(status)
 })
 
 // listen for requests

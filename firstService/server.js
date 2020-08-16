@@ -29,7 +29,7 @@ app.get('/:uid/:name/:emailid/:startdate', (req, res) => {
         if (err){
             axios.get(`http://localhost:3004/firstservice/${item.uid}/500`)
             .then(response=>{
-                    console.log(response)
+                    console.log(response.data)
             })
           .catch(error=>{
                     console.log(error)
@@ -40,7 +40,7 @@ app.get('/:uid/:name/:emailid/:startdate', (req, res) => {
             if (err){
                 axios.get(`http://localhost:3004/firstservice/${item.uid}/500`)
                 .then(response=>{
-                        console.log(response)
+                        console.log(response.data)
                 })
               .catch(error=>{
                         console.log(error)
@@ -51,7 +51,7 @@ app.get('/:uid/:name/:emailid/:startdate', (req, res) => {
                 if (err){
                     axios.get(`http://localhost:3004/firstservice/${item.uid}/500`)
                     .then(response=>{
-                            console.log(response)
+                            console.log(response.data)
                     })
                   .catch(error=>{
                             console.log(error)
@@ -60,7 +60,7 @@ app.get('/:uid/:name/:emailid/:startdate', (req, res) => {
             
         axios.get(`http://localhost:3004/firstservice/${item.uid}/200`)
                                                         .then(response=>{
-                                                                console.log(response)
+                                                                console.log(response.data)
                                                         })
                                                       .catch(error=>{
                                                                 console.log(error)
