@@ -19,12 +19,32 @@ app.get('/',(req,res)=>{
     res.send("<h1>yo you<h1> ")
 }) 
 //inserting document in collection.
+app.get('/lan/:uid',(req,res)=>{
+    var item={
+        "uid":req.params.uid
+    }
+    MongoClient.connect(dbConfig.url, function (err, db) {
+        db.collection('user',(err,coln)=>{
+            var number;
+        coln.findOne(item,(err,data)=>{
+            if (err){
+                console.log(err)
+            }
 
+            var number=Number(new Date(data.startdate))
+            res.send({"status":"send"})
+            console.log(data.startdate)
+        })
+    })
+    })
+})
 
 app.get('/timescheduling/:uid', (req, res) => {
     var item={
     "uid":req.params.uid
     }
+
+    
     MongoClient.connect(dbConfig.url, function (err, db) {
         
         // db.collection('user',(err,coln)=>{
@@ -37,35 +57,53 @@ app.get('/timescheduling/:uid', (req, res) => {
         // })
         db.collection('user',(err,coln)=>{
             var number;
+
+
         coln.findOne(item,(err,data)=>{
-            if (err) throw err;
-            number=Number(new date(data.startdate))
+            if (err){
+                console.log(err)
+            }
+            number=Number(new Date(data.startdate))
         })
+
+
         coln.find((err,data)=>{
-            if (err) throw err;
+            if (err){
+                console.log(err)
+            }
+            var count=0;
             data.forEach(element => {
-                
+                // console.log(element)
                 if ((Number(new Date(element.startdate)))==number){
-                    axios.get(`http://localhost:3004/secondservice/${req.params.uid}/500`)
-                            .then(response=>{
-                                    console.log(response.data)
-                                    res.send({"status":"fail"})
-                            })
-                            .catch(error=>{
-                                        console.log(error)
-        })
+                    count=count+1
+                    console.log(count)
+                    if (count==2){
+                        console.log(litem)
+                            axios.get(`http://localhost:3004/secondservice/${req.params.uid}/500`)
+                                    .then(response=>{
+                                            console.log({"status":'pass with 500'})
+                                            res.send({"status":"fail"})
+                                            
+                                    })
+                                    .catch(error=>{
+                                                console.log(error)
+                })
+                    }
+                    // console.log(number)
+                    // console.log(count)
                 }
-                console.log(Number(new Date(element.startdate)))
+                // console.log(Number(new Date(element.startdate)))
             });
+
+
             axios.get(`http://localhost:3004/secondservice/${req.params.uid}/200`)
                             .then(response=>{
-                                    console.log(response.data)
+                                    console.log({"status":"pass with 200"})
                                     res.send({"status":"pass"})
                             })
                             .catch(error=>{
                                         console.log(error)
-        })
-           
+        })   
             // res.json(data.startdate)
             db.close();
         })

@@ -25,8 +25,8 @@ app.get('/namecheck/:uid',(req,res)=>{
                 if (data.name[0]=="A"){
                     axios.get(`http://localhost:3004/thirdservice/${req.params.uid}/200`)
                     .then(response=>{
-                            console.log(response.data)
-                            res.send({"status":"pass"})
+                            console.log({"status":"pass with 200"})
+                            res.send({"status":"pass with 200"})
                     })
                     .catch(error=>{
                             console.log(error)
@@ -36,8 +36,8 @@ app.get('/namecheck/:uid',(req,res)=>{
                 else{
                     axios.get(`http://localhost:3004/thirdservice/${req.params.uid}/500`)
                     .then(response=>{
-                            console.log(response.data)
-                            res.send({"status":"pass"})
+                            console.log({"status":"pass with 500"})
+                            res.send({"status":"pass with 500"})
                     })
                     .catch(error=>{
                             console.log(error)

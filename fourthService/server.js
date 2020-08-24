@@ -94,6 +94,7 @@ app.get('/thirdservice/:uid/:status',(req,res)=>{
 
     if (req.params.status == "200"){
         console.log("Data successfully entered")
+        res.send({"status":"Data entered"})
     }
     else{
     axios.get(`http://localhost:3000/reversbooking/${req.params.uid}`)
